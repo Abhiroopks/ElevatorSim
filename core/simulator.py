@@ -1,28 +1,32 @@
+import logging
 from core.elevator import Elevator
 from cli.listener import Listener
-from time import sleep
 from core.models import Request
+
+"""
+Acts as mediator between Elevator system and CLI.
+"""
 
 
 class Simulator:
-    def __init__(self, logger):
-        self.logger = logger
+    def __init__(self, logger: logging.Logger):
+        self.logger: logging.Logger = logger
+        self.quit: bool = False
 
     def start(self):
         elevator = Elevator(self.logger)
-        listener = Listener()
+        listener: Listener = Listener()
         listener.start()
-        while True:
+        requests: list = []
+        while not self.quit:
+            requests.clear()
             if listener.has_requests():
                 request: Request = listener.pop_request()
-                # print(request)
+                self.logger.info(f"Received request from cli: {request}")
                 ##
                 # Exit the while loop and allow process to terminate.
                 if request.quit:
+                    self.quit = True
                     break
 
-                ##
-                # Forward the request to elevator
-                elevator.process_request(request=request)
-
-            sleep(1)
+                elevator.process_request(request)

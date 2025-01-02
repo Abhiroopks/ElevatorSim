@@ -5,7 +5,9 @@ from core.models import Request
 class Elevator:
     def __init__(self, logger):
         self.logger = logger
-        self.state = IdleState(self, logger)
+        ##
+        # Initializes to Idle State.
+        self.state: State = IdleState(self, logger)
 
     def process_request(self, request: Request):
         self.state.process_request(request)

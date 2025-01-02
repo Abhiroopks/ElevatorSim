@@ -4,6 +4,7 @@ File to hold data model definitions.
 
 from enum import Enum
 from json import dumps
+from typing import Optional
 
 
 class Operation(Enum):
@@ -20,10 +21,10 @@ class Request:
 
     def __init__(
         self,
-        operation: Operation = None,
-        floor: str = None,
-        direction: str = None,
-        quit: bool = None,
+        operation: Optional[Operation] = None,
+        floor: str = "",
+        direction: str = "",
+        quit: bool = False,
     ):
         self.operation = operation
 

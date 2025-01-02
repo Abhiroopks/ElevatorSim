@@ -1,5 +1,6 @@
 from abc import ABC, abstractmethod
-from core.models import Request
+import logging
+from core.models import Request, Operation
 
 
 class State(ABC):
@@ -7,9 +8,9 @@ class State(ABC):
     Abstract class for elevator States
     """
 
-    def __init__(self, context, logger):
-        self.context = context
-        self.logger = logger
+    def __init__(self, context: "Elevator", logger: logging.Logger):  # type: ignore
+        self.elevator: "Elevator" = context  # type: ignore
+        self.logger: logging.Logger = logger
         super().__init__()
 
     @abstractmethod
@@ -20,16 +21,25 @@ class State(ABC):
 class IdleState(State):
 
     def process_request(self, request: Request):
-        print(request)
+        if request.operation == Operation.PICKUP:
+            pass
+        if request.operation == Operation.DROPOFF:
+            pass
 
 
 class MovingUpState(State):
 
     def process_request(self, request: Request):
-        print(request)
+        if request.operation == Operation.PICKUP:
+            pass
+        if request.operation == Operation.DROPOFF:
+            pass
 
 
 class MovingDownState(State):
 
     def process_request(self, request: Request):
-        print(request)
+        if request.operation == Operation.PICKUP:
+            pass
+        if request.operation == Operation.DROPOFF:
+            pass

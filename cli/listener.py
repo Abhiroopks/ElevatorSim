@@ -9,8 +9,8 @@ DROPOFF_COMMAND_PATTERN = "^drop (\\d+)$"
 
 class Listener:
     def __init__(self):
-        self.quit = False
-        self.queue = SimpleQueue()
+        self.quit: bool = False
+        self.queue: SimpleQueue = SimpleQueue()
 
     def has_requests(self):
         return not self.queue.empty()
@@ -27,14 +27,14 @@ class Listener:
 
     def process_inputs(self):
         print("Listening for commands from stdin...")
-        while not self.quit:
+        while True:
             cmd = input().strip().lower()
 
             if cmd == "quit":
                 self.quit = True
                 request = Request(quit=True)
                 self.queue.put(request)
-                continue
+                break
 
             match = None
             ##
