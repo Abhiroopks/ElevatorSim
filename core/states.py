@@ -9,9 +9,10 @@ class State(ABC):
     """
 
     def __init__(self, context: "Elevator", logger: logging.Logger):  # type: ignore
+        super().__init__()
+
         self.elevator: "Elevator" = context  # type: ignore
         self.logger: logging.Logger = logger
-        super().__init__()
 
     @abstractmethod
     def process_request(self, request: Request):

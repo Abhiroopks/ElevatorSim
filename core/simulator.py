@@ -17,9 +17,7 @@ class Simulator:
         elevator = Elevator(self.logger)
         listener: Listener = Listener()
         listener.start()
-        requests: list = []
         while not self.quit:
-            requests.clear()
             if listener.has_requests():
                 request: Request = listener.pop_request()
                 self.logger.info(f"Received request from cli: {request}")
