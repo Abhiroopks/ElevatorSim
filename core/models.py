@@ -24,7 +24,6 @@ class Request:
         operation: Optional[Operation] = None,
         floor: str = "",
         direction: str = "",
-        quit: bool = False,
     ):
         self.operation = operation
 
@@ -37,14 +36,11 @@ class Request:
         else:
             self.direction = None
 
-        self.quit = quit
-
     def __str__(self):
         return dumps(
             {
                 "operation": self.operation.name if self.operation else None,
                 "floor": self.floor,
                 "direction": self.direction.name if self.direction else None,
-                "quit": self.quit,
             }
         )

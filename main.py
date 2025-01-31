@@ -2,7 +2,7 @@ from core.simulator import Simulator
 import logging
 
 
-def main():
+def main() -> None:
     ##
     # Setup logging
     logger: logging.Logger = logging.getLogger(__name__)

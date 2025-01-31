@@ -10,8 +10,12 @@ class Elevator:
         self.state: State = IdleState(self, logger)
         self.floor: int = 1
 
-    def process_request(self, request: Request):
+    def process_request(self, request: Request) -> None:
         self.state.process_request(request)
 
-    def change_state(self, state: State):
+    def change_state(self, state: State) -> None:
         self.state = state
+    
+    def step(self) -> None:
+        self.state.step()
+

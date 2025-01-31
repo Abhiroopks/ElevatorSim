@@ -8,14 +8,18 @@ class State(ABC):
     Abstract class for elevator States
     """
 
-    def __init__(self, context: "Elevator", logger: logging.Logger):  # type: ignore
+    def __init__(self, elevator: "Elevator", logger: logging.Logger):  # type: ignore
         super().__init__()
 
-        self.elevator: "Elevator" = context  # type: ignore
+        self.elevator: "Elevator" = elevator  # type: ignore
         self.logger: logging.Logger = logger
 
     @abstractmethod
     def process_request(self, request: Request):
+        pass
+
+    @abstractmethod
+    def step(self):
         pass
 
 
@@ -27,6 +31,9 @@ class IdleState(State):
         if request.operation == Operation.DROPOFF:
             pass
 
+    def step(self):
+        self.logger.info("Elevator is idle, nothing to do this step.")
+
 
 class MovingUpState(State):
 
@@ -36,6 +43,9 @@ class MovingUpState(State):
         if request.operation == Operation.DROPOFF:
             pass
 
+    def step(self):
+        pass
+
 
 class MovingDownState(State):
 
@@ -44,3 +54,6 @@ class MovingDownState(State):
             pass
         if request.operation == Operation.DROPOFF:
             pass
+
+    def step(self):
+        pass

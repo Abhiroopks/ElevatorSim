@@ -8,15 +8,18 @@ DROPOFF_COMMAND_PATTERN = "^drop (\\d+)$"
 
 
 class Listener:
-    def __init__(self):
-        self.quit: bool = False
+    def __init__(self, simulator):
         self.queue: SimpleQueue = SimpleQueue()
+        self.simulator = simulator
 
     def has_requests(self):
         return not self.queue.empty()
 
     def pop_request(self):
         return self.queue.get()
+
+    def quit(self):
+        self.simulator.quit()
 
     def start(self):
         """
@@ -31,9 +34,7 @@ class Listener:
             cmd = input().strip().lower()
 
             if cmd == "quit":
-                self.quit = True
-                request = Request(quit=True)
-                self.queue.put(request)
+                self.quit()
                 break
 
             match = None
@@ -57,8 +58,3 @@ class Listener:
                 continue
 
             print("invalid command")
-
-
-if __name__ == "__main__":
-    listener = Listener()
-    listener.start()
