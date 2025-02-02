@@ -13,9 +13,11 @@ class Simulator:
     def __init__(self, logger: logging.Logger):
         self.logger: logging.Logger = logger
         self.quit_flag: bool = False
+        self.floors = 0
 
     def start(self) -> None:
-        elevator = Elevator(self.logger)
+        self.floors = int(input("Enter number of floors"))
+        elevator = Elevator(self.logger, self.floors)
         listener: Listener = Listener(simulator=self)
         listener.start()
         while not self.quit_flag:

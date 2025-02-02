@@ -21,13 +21,13 @@ class Request:
 
     def __init__(
         self,
-        operation: Optional[Operation] = None,
-        floor: str = "",
+        operation: Operation,
+        floor: int,
         direction: str = "",
     ):
         self.operation = operation
 
-        self.floor = int(floor) if floor != None else None
+        self.floor = floor
 
         if direction == "up":
             self.direction = Direction.UP

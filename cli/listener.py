@@ -42,8 +42,13 @@ class Listener:
             # Try matching pickup request
             match = re.search(pattern=PICKUP_COMMAND_PATTERN, string=cmd)
             if match:
+                floor = int(match[1])
+                if not (floor >= 0 and floor < self.simulator.floors):
+                    print("invalid floor number")
+                    continue
+                direction = match[2]
                 request = Request(
-                    operation=Operation.PICKUP, floor=match[1], direction=match[2]
+                    operation=Operation.PICKUP, floor=int(match[1]), direction=match[2]
                 )
                 self.queue.put(request)
                 continue
@@ -52,7 +57,11 @@ class Listener:
             # Try matching dropoff request
             match = re.search(pattern=DROPOFF_COMMAND_PATTERN, string=cmd)
             if match:
-                request = Request(operation=Operation.DROPOFF, floor=match[1])
+                floor = int(match[1])
+                if not (floor >= 0 and floor < self.simulator.floors):
+                    print("invalid floor number")
+                    continue
+                request = Request(operation=Operation.DROPOFF, floor=int(match[1]))
             if match:
                 self.queue.put(request)
                 continue
