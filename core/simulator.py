@@ -16,7 +16,7 @@ class Simulator:
         self.floors = 0
 
     def start(self) -> None:
-        self.floors = int(input("Enter number of floors"))
+        self.floors = int(input("Enter number of floors\n"))
         elevator = Elevator(self.logger, self.floors)
         listener: Listener = Listener(simulator=self)
         listener.start()
